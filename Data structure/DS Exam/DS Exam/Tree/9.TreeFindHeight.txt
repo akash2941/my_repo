@@ -1,0 +1,72 @@
+#include<iostream>
+#include<stdlib.h>
+
+using namespace std;
+
+struct node
+{
+    int data;
+    struct  node * left;
+    struct node * right;
+};
+
+struct node *createnode(int input)
+{
+    struct node *temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=input;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+
+}
+
+struct node *insertnode(struct node *root,int input)
+{
+    if(root == NULL)
+    {
+        return createnode(input);
+    }
+    if(input < root->data)
+    {
+        root->left = insertnode(root->left ,input);
+    }
+    if(input > root->data)
+    {
+        root->right = insertnode(root->right ,input);
+    }
+    return root;
+}
+
+//Function To Calculate Maximum Height Or Depth
+int maxHeight(node * root)
+{
+ 
+  if (root == NULL)   // Root being null means tree doesn't exist.
+    return 0;
+  // using recursion.
+  int leftDepth = maxHeight(root->left);  // Get the depth of the left subtree 
+  int rightDepth = maxHeight(root->right);// Get the depth of the right subtree 
+
+  if (leftDepth > rightDepth)   // Choose the larger one and add the root to it.
+    {
+    return leftDepth + 1;
+    }
+  else
+  {
+    return rightDepth + 1;
+  }
+}
+
+int main()
+{
+    struct node *root =NULL;
+    root=insertnode(root,1);
+    insertnode(root,2);
+    insertnode(root,3);
+    insertnode(root,4);
+    insertnode(root,7);
+    //insertnode(root,3);
+    cout<<"Height Of a tree is : "<<maxHeight(root)<<endl;
+
+    return 0;
+}

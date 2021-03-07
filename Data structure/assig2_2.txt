@@ -1,0 +1,284 @@
+#include<iostream>
+using namespace std;
+class Node
+{
+    private:
+            int data;
+            Node *next;
+    public:
+            Node()
+            {
+                next=NULL;
+            }
+            ~Node()
+            {
+                next=NULL;
+            }
+            Node(int data)
+            {
+                this->data=data;
+                this->next=NULL;
+            }
+            int getdata()
+            {
+                return data;
+            }
+            Node *getnext()
+            {
+                return next;
+            }
+            void setnext(Node *next)
+            {
+                this->next=next;
+            }
+};
+class linklist
+{
+    private:
+            Node *head;
+    public:
+            linklist()
+            {
+                head=NULL;
+            }
+            int AB(int data)
+            {
+                Node *node=new Node(data);
+                if(head==NULL)
+                {
+                    head=node;
+                }
+                else
+                {
+                    node->setnext(head);
+                    head=node;
+                }
+            }
+            void AE(int data)
+            {
+                Node *node=new Node(data);
+                if(head==NULL)
+                {
+                    head=node;
+                }
+                else
+                {
+                    Node *temp=head;
+                    while(temp->getnext()!=NULL)
+                    {
+                        temp=temp->getnext();
+                    }
+                    temp->setnext(node);
+                }
+            }
+            int AMA(int aft,int value)
+            {
+                Node *node=new Node(value);
+                Node *temp=head;
+                while(temp!=NULL && temp->getdata()!=aft)
+                {
+                    temp=temp->getnext();
+                }
+                if(temp==NULL)
+                {
+                    return 0;
+                }
+                else
+                {
+                    node->setnext(temp->getnext());
+                    temp->setnext(node);
+                }
+            }
+            int AMB(int bef,int value)
+            {
+                Node *node=new Node(value);
+                Node *temp=head;
+                Node *pre=head;
+                while(temp->getdata()!=bef)
+                {
+                    pre=temp;
+                    temp=temp->getnext();
+                    if(temp==NULL)
+                    {
+                        return 0;
+                    }    
+                    
+                }
+                if(head->getdata()==bef)
+                {
+                    node->setnext(head);
+                    head=node;
+                }
+                else
+                {
+                    node->setnext(temp);
+                    pre->setnext(node);
+                }
+            }
+            void DN(int value)
+            {
+                Node *temp=head;
+                Node *pre=head;
+                while(temp!=NULL && temp->getdata()!=value)
+                {
+                    temp=temp->getnext();
+                }
+                while(pre->getnext()!=temp)
+                {
+                    pre=pre->getnext();
+                }
+                pre->setnext(temp->getnext());
+            }
+            Node *DNB(int before)
+            {
+                Node *temp=head;
+                Node *pre=NULL;
+                if(head->getdata()==before)
+                {
+                    return 0;
+                }
+                while(temp->getnext()->getdata()!=before)
+                {
+                    pre=temp;
+                    temp=temp->getnext();
+                }
+                if(temp==head)
+                {
+                    head=temp->getnext();
+                }
+                else
+                {
+                    pre->setnext(temp->getnext());
+                }
+            }
+            Node *DNA(int after)
+            {
+                Node *temp=head;
+                Node *nextn=head;
+            
+                while(temp->getnext()!=NULL)
+                {
+                    if(temp->getdata()==after)
+                    {
+                        temp->setnext(temp->getnext()->getnext());
+                        break;
+                    }
+                    else
+                    {
+                        temp=temp->getnext();
+                    }
+                }
+            }
+            void RPR(linklist l)
+            {
+                Node *temp=head;
+                while(temp!=NULL)
+                {
+                l.AB(temp->getdata());
+                temp=temp->getnext();
+                }
+                l.PR();
+            }
+            void PR()
+            {
+                Node *temp=head;
+                while(temp!=NULL)
+                {
+                    cout<<temp->getdata()<<" ";
+                    temp=temp->getnext();
+                }
+                cout<<endl;
+            }
+            void FPR()
+            {
+                Node *temp=head;
+                while(temp->getnext()!=NULL)
+                {
+                    cout<<temp->getdata()<<"->";
+                    temp=temp->getnext();
+                }
+                cout<<temp->getdata();
+                cout<<endl;
+            }
+            ~linklist()
+            {
+                while(head!=NULL)
+                {
+                    Node *temp=head;
+                    head=head->getnext();
+                    delete temp;
+                }
+            }
+};
+int main()
+{
+    linklist a1,l;
+    string cmd;
+    while(1)
+    {
+        cin>>cmd;
+        if(cmd=="AB")
+        {
+            int r;
+            cin>>r;
+            a1.AB(r);
+        }
+        if(cmd=="AE")
+        {
+            int r;
+            cin>>r;
+            a1.AE(r);
+        }
+        if(cmd=="AMA")
+        {
+            int r;
+            int y;
+            cin>>r;
+            cin>>y;
+            a1.AMA(r,y);
+        }
+        if(cmd=="AMB")
+        {
+            int r;
+            int y;
+            cin>>r;
+            cin>>y;
+            a1.AMB(r,y);
+        }
+        if(cmd=="DN")
+        {
+            int r;
+            cin>>r;
+            a1.DN(r);
+        }
+        if(cmd=="DNA")
+        {
+            int r;
+            cin>>r;
+            a1.DNA(r);
+        }
+        if(cmd=="DNB")
+        {
+            int r;
+            cin>>r;
+            a1.DNB(r);
+        }
+        if(cmd=="PR")
+        {
+            a1.PR();
+        }
+        if(cmd=="FPR")
+        {
+            a1.FPR();
+        }
+        if(cmd=="RPR")
+        {
+            a1.RPR(l);
+        }
+        if(cmd=="EXIT")
+        {
+            break;
+        }
+    }
+    return 0;
+}

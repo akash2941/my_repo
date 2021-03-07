@@ -1,0 +1,189 @@
+#include <iostream>
+
+using namespace std;
+class CQueue
+{
+private:
+    int front;
+    int rear;
+    int size;
+    int *store;
+public:
+    CQueue(int size)
+    {
+        this->size=size;
+        front=-1;
+        rear=-1;
+        store=new int(size);
+    }
+
+    bool isEmpty()
+    {
+        if(front==-1 && rear==-1)
+            return true;
+        else
+            return false;
+    }
+
+    bool isFull()
+    {
+        if(front==(rear+1)%size )
+            return true;
+        else
+            return false;
+    }
+
+    void enqueue(int data)
+    {
+        if(isFull())
+        {
+            cout<<"queue is full"<<endl;
+        }
+        else if(isEmpty())
+        {
+            front=0;
+            rear=0;
+            store[rear]=data;
+        }
+        else
+        {
+            rear=(rear+1)%size;
+            store[rear]=data;
+
+        }
+    }
+
+    int dequeue()
+    {
+        if(isEmpty())
+            cout<<"queue is empty"<<endl;
+        else if(front==rear)
+        {
+            int data=store[front];
+            store[front]=0;
+            front=-1;
+            rear=-1;
+            return data;
+        }
+        else
+        {
+            int data=store[front];
+            store[front]=0;
+            front=(front+1)%size;
+            return data;
+        }
+
+    }
+};
+int main()
+{
+    CQueue c1(4);
+     string cmd;
+    int a;
+    while(1)
+    {
+        cin>>cmd;
+        if(cmd=="exit")
+        {
+            break;
+        }
+        if(cmd=="en")
+        {
+            cin>>a;
+            c1.enqueue(a);
+        }
+        if(cmd=="de")
+        {
+            c1.dequeue();
+        }
+    }
+    return 0;
+}
+-------------------------------------------------------------------------------------
+#include<iostream>
+#include<assert.h>
+
+using namespace std;
+
+class cqueue
+{
+        private:
+                int size;
+                int front;
+                int rare;
+                int noe;
+                int *store;
+
+        public:
+                cqueue()
+                {
+                }
+
+                cqueue(int size)
+                {
+                        this->size=size;
+                        store=new int[size];
+                        front=0;
+                        rare=0;
+                        noe=0;
+
+                }
+
+                int isFull()
+                {
+                        if(noe==size)
+                                return 1;
+                        return 0;
+                }
+
+                int isEmpty()
+                {
+                        if(noe==0)
+                                return 1;
+                        return 0;
+                }
+
+                int enqueue(int data)
+                {
+                        if(!isFull());
+
+                        store[rare]=data;
+                        rare++;
+                        rare=(rare+1)%size;
+                        return data;
+
+                }
+
+                int dequeue()
+                {
+                        if(!isEmpty());
+
+                        int data=store[front];
+                        front=(front+1)%size;
+                        front++;
+                        return data;
+                }
+};
+
+
+
+int main()
+{
+ int a,b,c;
+ cqueue q1(3);
+ a=q1.enqueue(10);
+ cout<<a<<endl; 
+ b=q1.enqueue(11);
+ cout<<b<<endl;
+ c=q1.enqueue(12);
+ cout<<c<<endl;
+ cout<<"====================="<<endl;
+
+ cout<<q1.dequeue()<<endl;
+ cout<<q1.dequeue()<<endl;
+ cout<<q1.dequeue()<<endl;
+
+// cout<<q1.dequeue()<<endl;
+ return 0;
+}
+--------                        
